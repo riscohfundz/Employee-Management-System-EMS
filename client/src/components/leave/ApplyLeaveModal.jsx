@@ -1,4 +1,4 @@
-import { CalendarDays, FileText, Loader2, Send, X } from 'lucide-react'
+import { CalendarDays, FileText, Loader2, Send, X , Download } from 'lucide-react'
 import React, { useState } from 'react'
 
 const ApplyLeaveModal = ({open, onClose, onSuccess}) => {
