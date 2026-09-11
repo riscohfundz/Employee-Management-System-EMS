@@ -43,7 +43,7 @@ const Settings = () => {
            <p className='text-sm text-slate-500'>Update your account password</p>
           </div>
           </div>
-        <button onClick={()=>showPasswordModal(true)}
+        <button onClick={()=>setShowPasswordModal(true)}
           className='btn-secondary text-sm'>
             Change
         </button>
