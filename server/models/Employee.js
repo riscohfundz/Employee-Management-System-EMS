@@ -11,7 +11,7 @@ const employeeSchema = new mongoose.Schema({
     basicSalary: {type: Number, default: 0},
     allowance: {type: Number, default: 0},
     deductions: {type: Number, default: 0},
-    employementStatus: {type: Number, enum: ["ACTIVE", "INACTIVE"],
+    employementStatus: {type: String, enum: ["ACTIVE", "INACTIVE"],
     default: "ACTIVE"},
     joinDate: {type: Date, required: true},
     isDeleted: {type: String, default: false},
@@ -21,7 +21,6 @@ const employeeSchema = new mongoose.Schema({
 }, {timestamps: true})
 
 
-const Employee = mongoose.models.Employee || mongoose.model
-("Employee", employeeSchema)
+const Employee = mongoose.models.Employee || mongoose.model("Employee", employeeSchema)
 
 export default Employee;

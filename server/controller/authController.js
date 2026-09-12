@@ -2,8 +2,6 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from 'jsonwebtoken'
 
-
-
 //Login for employee and admin
 //POST /api/auth/login
 export const login = async(req, res)=>{
