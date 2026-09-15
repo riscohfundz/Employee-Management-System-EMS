@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import "dotenv/config"; 
+import "dotenv/config";
 import multer from "multer";
 import connectDB from "./config/db.js";
 import authRouter from "./routes/authRoute.js";
@@ -9,6 +9,7 @@ import profileRouter from "./routes/profileRoutes.js";
 import attendanceRouter from "./routes/attendanceRouter.js";
 import leaveRouter from "./routes/leaveRoutes.js";
 import payslipRoutes from "./routes/payslipRoutes.js";
+import dashboardRouter from "./routes/dashboardRoutes.js";
 
 
 const app = express()
@@ -23,14 +24,15 @@ app.use(multer().none())
 
 // Routes
 
-app.get("", (req, res)=> res.send("Server is running"))
+app.get("", (req, res) => res.send("Server is running"))
 app.use("/api/auth", authRouter)
 app.use("/api/employee", employeeRouter)
 app.use("/api/profile", profileRouter)
 app.use("/api/attendance", attendanceRouter)
 app.use("/api/leave", leaveRouter)
 app.use("/api/payslips", payslipRoutes)
+app.use("/api/dashboard", dashboardRouter)
 await connectDB()
 
-app.listen(PORT, ()=> console.log(`Server running on port ${PORT} `)
+app.listen(PORT, () => console.log(`Server running on port ${PORT} `)
 )
