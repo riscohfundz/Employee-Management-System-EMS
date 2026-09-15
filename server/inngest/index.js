@@ -97,11 +97,11 @@ const leaveApplicationReminder = inngest.createFunction(
 // Cron: Check atttendance at 11:30 AM IST (06: 00 UTC) and email absent employees
 
 const attendanceReminderCron = inngest.createFunction(
-    { id: "attendance-reminder-cron", triggers: [ { cron: "TZ=asia/Kolkata 30 11 * * *"}] },
+    { id: "attendance-reminder-cron", triggers: [ { cron: "TZ=Asia/Kolkata 30 11 * * *"}] },
     async ({ step }) =>{
         // Step 1: Get today's date range (IST)
         const today = await step.run("get-today-date", ()=>{
-            const startUTC = new Date(new Date().toLocaleDateString("en-CA", {timezone: "Asia/Kolkata"}) + "T00: 00: 00 + 05:30 * 1000");
+            const startUTC = new Date(new Date().toLocaleDateString("en-CA", {timeZone: "Asia/Kolkata"}) + "T00: 00: 00 + 05:30 * 1000");
             const endUTC = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
             return {startUTC: startUTC.toISOString(), endUTC: endUTC.toISOString()}
         })
@@ -109,7 +109,7 @@ const attendanceReminderCron = inngest.createFunction(
 
         // Step 2: Get all active, non-deleted employees
         const activeEmployees = await step.run("get-active-employess", async ()=>{
-            const employess = await Employee.find({
+            const employees = await Employee.find({
                 isDeleted: false,
                 employmentStatus: "ACTIVE",
             }).lean();
@@ -121,7 +121,7 @@ const attendanceReminderCron = inngest.createFunction(
             const leaves = await LeaveApplication.find({
                 status: "APPROVED",
                 startDate: { $lte: new Date(today.endUTC) },
-                endtDate: { $lte: new Date(today.startUTC) },
+                endDate: { $lte: new Date(today.startUTC) },
             }).lean();
             return leaves.map((l)=>l.employeeId.toString())
         })
